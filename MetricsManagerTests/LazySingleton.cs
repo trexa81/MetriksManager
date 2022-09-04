@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MetriksManager.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,5 +9,12 @@ namespace MetricsManagerTests
 {
     internal class LazySingleton
     {
+        private static readonly Lazy<AgentPool> _instance =
+            new Lazy<AgentPool>(() => new AgentPool());
+
+        public static AgentPool Instance
+        {
+            get { return _instance.Value; }
+        }
     }
 }
