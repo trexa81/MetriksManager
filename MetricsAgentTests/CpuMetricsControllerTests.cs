@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using MetricsAgent.Controllers;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace MetricsAgentTests
 {
-    public class CPUmetriksControllerTest
+    public class CpuMetricsControllerTests
     {
-        public CPUmetricsController _cpuMetricsController;
+        private CpuMetricsController _cpuMetricsController;
 
-        public CPUmetriksControllerTest()
+        public CpuMetricsControllerTests()
         {
-            _cpuMetricsController = new CPUmetricsController();
+            _cpuMetricsController = new CpuMetricsController();
         }
 
         [Fact]
