@@ -3,18 +3,18 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace MetriksManager.Controllers
 {
-    [Route("api/ram")]
+    [Route("api/dotnet")]
     [ApiController]
-    public class RAMmetriksController : ControllerBase
+    public class DotNetMetricsController : ControllerBase
     {
-        [HttpGet("available/agent/{agentId}/from/{fromTime}/to/{toTime}")]
+        [HttpGet("errors-count/agent/{agentId}/from/{fromTime}/to/{toTime}")]
         public IActionResult GetMetricsFromAgent(
             [FromRoute] int agentId, [FromRoute] TimeSpan fromTime, [FromRoute] TimeSpan toTime)
         {
             return Ok();
         }
 
-        [HttpGet("available/all/from/{fromTime}/to/{toTime}")]
+        [HttpGet("errors-count/all/from/{fromTime}/to/{toTime}")]
         public IActionResult GetMetricsFromAll(
             [FromRoute] TimeSpan fromTime, [FromRoute] TimeSpan toTime)
         {
@@ -22,4 +22,4 @@ namespace MetriksManager.Controllers
         }
     }
 }
-// e. api / metrics / ram / available / from /{ fromTime}/ to /{ toTime}
+// b. api / metrics / dotnet / errors-count/ from /{ fromTime}/ to /{ toTime}
