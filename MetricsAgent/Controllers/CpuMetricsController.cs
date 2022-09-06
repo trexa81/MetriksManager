@@ -24,3 +24,8 @@ namespace MetricsAgent.Controllers
         }
     }
 }
+// a. api/metrics/cpu/from/{fromTime}/to/{toTime} [ВЫПОЛНИЛИ ВМЕСТЕ]
+// b. api/metrics/dotnet/errors-count/from/{ fromTime}/ to /{ toTime}
+// c. api/metrics/network/from/{ fromTime}/ to /{ toTime}
+// d. api/metrics/hdd/left/from/{ fromTime}/ to /{ toTime}
+// e. api/metrics/ram/available/from/{ fromTime}/ to /{ toTime}
