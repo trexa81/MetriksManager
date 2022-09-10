@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using MetricsAgent.Services;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection;
 
@@ -11,15 +12,15 @@ namespace MetricsAgent.Controllers
         #region Services
 
         private readonly ILogger<CpuMetricsController> _logger;
-        //private readonly ICpuMetricsRepository _cpuMetricsRepository;
+        private readonly ICpuMetricsRepository _cpuMetricsRepository;
         #endregion
 
 
         public CpuMetricsController(
-            //ICpuMetricsRepository cpuMetricsRepository,
+            ICpuMetricsRepository cpuMetricsRepository,
             ILogger<CpuMetricsController> logger)
         {
-            //_cpuMetricsRepository = cpuMetricsRepository;
+            _cpuMetricsRepository = cpuMetricsRepository;
             _logger = logger;
         }
 

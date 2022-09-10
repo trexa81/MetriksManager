@@ -1,4 +1,6 @@
 using MetricsAgent.Converters;
+using MetricsAgent.Services.Impl;
+using MetricsAgent.Services;
 using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
@@ -14,6 +16,12 @@ namespace MetricsAgent
 
             // Add services to the container.
             // https://aka.ms/aspnetcore/swashbuckle
+
+            #region Configure Repository
+
+            builder.Services.AddScoped<ICpuMetricsRepository, CpuMetricsRepository>();
+
+            #endregion
 
             #region Configure logging
 
