@@ -8,6 +8,20 @@ namespace MetricsAgent.Controllers
     [ApiController]
     public class CpuMetricsController : ControllerBase
     {
+        #region Services
+
+        private readonly ILogger<CpuMetricsController> _logger;
+        //private readonly ICpuMetricsRepository _cpuMetricsRepository;
+        #endregion
+
+
+        public CpuMetricsController(
+            //ICpuMetricsRepository cpuMetricsRepository,
+            ILogger<CpuMetricsController> logger)
+        {
+            //_cpuMetricsRepository = cpuMetricsRepository;
+            _logger = logger;
+        }
 
         /// <summary>
         /// Получить статистику по нагрузке на ЦП за период
@@ -20,6 +34,7 @@ namespace MetricsAgent.Controllers
             [FromRoute] TimeSpan fromTime, [FromRoute] TimeSpan toTime)
         {
 
+            _logger.LogInformation("Get cpu metrics call.");
             return Ok();
         }
     }
