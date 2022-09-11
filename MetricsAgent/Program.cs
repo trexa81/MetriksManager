@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
 using NLog.Web;
+using System.Data.SQLite;
 
 namespace MetricsAgent
 {
@@ -19,7 +20,14 @@ namespace MetricsAgent
 
             #region Configure Repository
 
-            builder.Services.AddScoped<ICpuMetricsRepository, CpuMetricsRepository>();
+            builder.Services.AddScoped<ICpuMetricsRepository,
+                CpuMetricsRepository>();
+
+            #endregion
+
+            #region Configure Database
+
+            ConfigureSqlLiteConnection(builder.Services);
 
             #endregion
 
@@ -30,7 +38,8 @@ namespace MetricsAgent
                 logging.ClearProviders();
                 logging.AddConsole();
 
-            }).UseNLog(new NLogAspNetCoreOptions() { RemoveLoggerFactoryFilter = true });
+            }).UseNLog(new NLogAspNetCoreOptions() 
+            { RemoveLoggerFactoryFilter = true });
 
             builder.Services.AddHttpLogging(logging =>
             {
@@ -79,5 +88,32 @@ namespace MetricsAgent
 
             app.Run();
         }
+
+        private static void ConfigureSqlLiteConnection(IServiceCollection services)
+        {
+            const string connectionString = "Data Source = metrics.db; Version = 3; Pooling = true; Max Pool Size = 100;";
+            var connection = new SQLiteConnection(connectionString);
+            connection.Open();
+            //PrepareSchema(connection);
+        }
+
+        private static void PrepareSchema(SQLiteConnection connection)
+        {
+            using (var command = new SQLiteCommand(connection))
+            {
+                // Задаём новый текст команды для выполнения
+                // Удаляем таблицу с метриками, если она есть в базе данных
+                command.CommandText = "DROP TABLE IF EXISTS cpumetrics";
+                // Отправляем запрос в базу данных
+                command.ExecuteNonQuery();
+                command.CommandText =
+                    @"CREATE TABLE cpumetrics(id INTEGER
+                    PRIMARY KEY,
+                    value INT, time INT)";
+                command.ExecuteNonQuery();
+            }
+        }
+
     }
+
 }

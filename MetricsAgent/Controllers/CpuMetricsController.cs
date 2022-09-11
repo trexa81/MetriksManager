@@ -1,4 +1,6 @@
-﻿using MetricsAgent.Services;
+﻿using MetricsAgent.Models;
+using MetricsAgent.Models.Requests;
+using MetricsAgent.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Reflection;
@@ -24,6 +26,18 @@ namespace MetricsAgent.Controllers
             _logger = logger;
         }
 
+        [HttpPost("create")]
+        public IActionResult Create([FromBody]
+        CpuMetricCreateRequest request)
+        {
+            _cpuMetricsRepository.Create(new Models.CpuMetric
+            {
+                Value = request.Value,
+                Time = (int)request.Time.TotalSeconds
+            });
+            return Ok();
+        }
+
         /// <summary>
         /// Получить статистику по нагрузке на ЦП за период
         /// </summary>
@@ -31,17 +45,12 @@ namespace MetricsAgent.Controllers
         /// <param name="toTime">Время окончания периода</param>
         /// <returns></returns>
         [HttpGet("from/{fromTime}/to/{toTime}")]
-        public IActionResult GetCpuMetrics(
+        public ActionResult<IList<CpuMetric>> GetCpuMetrics(
             [FromRoute] TimeSpan fromTime, [FromRoute] TimeSpan toTime)
         {
 
             _logger.LogInformation("Get cpu metrics call.");
-            return Ok();
+            return Ok(_cpuMetricsRepository.GetByTimePeriod(fromTime, toTime));
         }
     }
 }
-// a. api/metrics/cpu/from/{fromTime}/to/{toTime} [ВЫПОЛНИЛИ ВМЕСТЕ]
-// b. api/metrics/dotnet/errors-count/from/{ fromTime}/ to /{ toTime}
-// c. api/metrics/network/from/{ fromTime}/ to /{ toTime}
-// d. api/metrics/hdd/left/from/{ fromTime}/ to /{ toTime}
-// e. api/metrics/ram/available/from/{ fromTime}/ to /{ toTime}
