@@ -18,16 +18,16 @@ namespace MetricsAgent
             // Add services to the container.
 
 
-
             #region Configure Repository
 
-            builder.Services.AddScoped<ICpuMetricsRepository, CpuMetricsRepository>();
+            builder.Services.AddScoped<ICpuMetricsRepository,
+                CpuMetricsRepository>();
 
             #endregion
 
             #region Configure Database
 
-            //ConfigureSqlLiteConnection(builder.Services);
+            ConfigureSqlLiteConnection(builder.Services);
 
             #endregion
 
@@ -38,11 +38,13 @@ namespace MetricsAgent
                 logging.ClearProviders();
                 logging.AddConsole();
 
-            }).UseNLog(new NLogAspNetCoreOptions() { RemoveLoggerFactoryFilter = true });
+            }).UseNLog(new NLogAspNetCoreOptions()
+            { RemoveLoggerFactoryFilter = true });
 
             builder.Services.AddHttpLogging(logging =>
             {
-                logging.LoggingFields = HttpLoggingFields.All | HttpLoggingFields.RequestQuery;
+                logging.LoggingFields = HttpLoggingFields.All
+                | HttpLoggingFields.RequestQuery;
                 logging.RequestBodyLogLimit = 4096;
                 logging.ResponseBodyLogLimit = 4096;
                 logging.RequestHeaders.Add("Authorization");
@@ -52,10 +54,10 @@ namespace MetricsAgent
 
             #endregion
 
-
             builder.Services.AddControllers()
               .AddJsonOptions(options =>
-                  options.JsonSerializerOptions.Converters.Add(new CustomTimeSpanConverter()));
+                  options.JsonSerializerOptions.Converters.
+                  Add(new CustomTimeSpanConverter()));
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(c =>
@@ -83,8 +85,6 @@ namespace MetricsAgent
             app.UseHttpLogging();
 
             app.MapControllers();
-
-           
 
             app.Run();
         }
