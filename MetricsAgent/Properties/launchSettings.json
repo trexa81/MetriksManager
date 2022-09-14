@@ -4,17 +4,17 @@
     "windowsAuthentication": false,
     "anonymousAuthentication": true,
     "iisExpress": {
-      "applicationUrl": "http://localhost:61347",
+      "applicationUrl": "http://localhost:39064",
       "sslPort": 0
     }
   },
   "profiles": {
-    "MetriksManager": {
+    "MetricsAgent": {
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "launchUrl": "swagger",
-      "applicationUrl": "http://localhost:5280",
+      "applicationUrl": "http://localhost:5176",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
