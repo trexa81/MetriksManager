@@ -27,7 +27,7 @@ namespace MetricsAgent
 
             #region Configure Database
 
-            ConfigureSqlLiteConnection(builder.Services);
+            //ConfigureSqlLiteConnection(builder.Services);
 
             #endregion
 
