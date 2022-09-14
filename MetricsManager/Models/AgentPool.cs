@@ -1,4 +1,4 @@
-﻿namespace MetriksManager.Models
+﻿namespace MetricsManager.Models
 {
     public class AgentPool
     {
@@ -25,5 +25,6 @@
             get { return _agents; }
             set { _agents = value; }
         }
+
     }
 }

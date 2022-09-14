@@ -1,5 +1,5 @@
-﻿using MetriksManager.Controllers;
-using MetriksManager.Models;
+﻿using MetricsManager.Controllers;
+using MetricsManager.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -11,7 +11,7 @@ using Xunit.Priority;
 namespace MetricsManagerTests
 {
     public class AgentsControllerTests
-    { 
+    {
         private AgentsController _agentsController;
         private AgentPool _agentPool;
 
@@ -42,5 +42,6 @@ namespace MetricsManagerTests
             Assert.NotNull(((OkObjectResult)actionResult.Result).Value);
             Assert.NotEmpty((AgentInfo[])((OkObjectResult)actionResult.Result).Value);
         }
+
     }
 }

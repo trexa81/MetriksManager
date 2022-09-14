@@ -8,7 +8,6 @@
         /// <param name="timeFrom">Время начала периода</param>
         /// <param name="timeTo">Время окончания периода</param>
         /// <returns></returns>
-        
         IList<T> GetByTimePeriod(TimeSpan timeFrom, TimeSpan timeTo);
 
         IList<T> GetAll();
@@ -17,4 +16,5 @@
         void Update(T item);
         void Delete(int id);
     }
+
 }

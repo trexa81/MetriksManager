@@ -1,4 +1,4 @@
-﻿namespace MetriksManager.Models
+﻿namespace MetricsManager.Models
 {
     public class AgentInfo
     {

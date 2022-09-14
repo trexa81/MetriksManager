@@ -1,4 +1,4 @@
-﻿using MetriksManager.Models;
+﻿using MetricsManager.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MetricsManagerTests
 {
-    internal class LazySingleton
+    public class LazySingleton
     {
         private static readonly Lazy<AgentPool> _instance =
             new Lazy<AgentPool>(() => new AgentPool());
@@ -16,5 +16,7 @@ namespace MetricsManagerTests
         {
             get { return _instance.Value; }
         }
+
     }
+
 }

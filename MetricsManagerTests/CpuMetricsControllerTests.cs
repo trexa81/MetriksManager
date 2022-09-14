@@ -1,4 +1,4 @@
-﻿using MetriksManager.Controllers;
+﻿using MetricsManager.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace MetricsManagerTests
 {
-    public class CPUmetricsControllerTests
+    public class CpuMetricsControllerTests
     {
-        private CPUmetriksController _cpuMetricsController;
+        private CpuMetricsController _cpuMetricsController;
 
-        public CPUmetricsControllerTests()
+        public CpuMetricsControllerTests()
         {
-            _cpuMetricsController = new CPUmetriksController();
+            _cpuMetricsController = new CpuMetricsController();
         }
 
         [Fact]
@@ -36,7 +36,7 @@ namespace MetricsManagerTests
             TimeSpan fromTime = TimeSpan.FromSeconds(0);
             TimeSpan toTime = TimeSpan.FromSeconds(100);
 
-            var result = _cpuMetricsController.GetMetricsFromAll(fromTime, toTime);
+            var result = _cpuMetricsController.GetMetricsFromAll( fromTime, toTime);
 
             Assert.IsAssignableFrom<IActionResult>(result);
         }

@@ -5,12 +5,11 @@ namespace MetricsAgent.Services.Impl
 {
     public class CpuMetricsRepository : ICpuMetricsRepository
     {
-
         private const string ConnectionString = "Data Source=metrics.db;Version=3;Pooling=true;Max Pool Size=100;";
+
 
         public void Create(CpuMetric item)
         {
-
             using var connection = new SQLiteConnection(ConnectionString);
             connection.Open();
             // Создаём команду
@@ -90,7 +89,13 @@ namespace MetricsAgent.Services.Impl
                 }
             }
         }
-        
+
+        /// <summary>
+        /// Получение данных по нагрузке на ЦП за период
+        /// </summary>
+        /// <param name="timeFrom">Время начала периода</param>
+        /// <param name="timeTo">Время окончания периода</param>
+        /// <returns></returns>
         public IList<CpuMetric> GetByTimePeriod(TimeSpan timeFrom, TimeSpan timeTo)
         {
             using var connection = new SQLiteConnection(ConnectionString);

@@ -1,20 +1,20 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace MetriksManager.Controllers
+namespace MetricsManager.Controllers
 {
-    [Route("api/ram")]
+    [Route("api/cpu")]
     [ApiController]
-    public class RAMmetriksController : ControllerBase
+    public class CpuMetricsController : ControllerBase
     {
-        [HttpGet("available/agent/{agentId}/from/{fromTime}/to/{toTime}")]
+        [HttpGet("agent/{agentId}/from/{fromTime}/to/{toTime}")]
         public IActionResult GetMetricsFromAgent(
             [FromRoute] int agentId, [FromRoute] TimeSpan fromTime, [FromRoute] TimeSpan toTime)
         {
             return Ok();
         }
 
-        [HttpGet("available/all/from/{fromTime}/to/{toTime}")]
+        [HttpGet("all/from/{fromTime}/to/{toTime}")]
         public IActionResult GetMetricsFromAll(
             [FromRoute] TimeSpan fromTime, [FromRoute] TimeSpan toTime)
         {
@@ -22,4 +22,3 @@ namespace MetriksManager.Controllers
         }
     }
 }
-// e. api / metrics / ram / available / from /{ fromTime}/ to /{ toTime}

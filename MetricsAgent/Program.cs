@@ -1,6 +1,6 @@
 using MetricsAgent.Converters;
-using MetricsAgent.Services.Impl;
 using MetricsAgent.Services;
+using MetricsAgent.Services.Impl;
 using Microsoft.AspNetCore.HttpLogging;
 using Microsoft.OpenApi.Any;
 using Microsoft.OpenApi.Models;
@@ -16,18 +16,18 @@ namespace MetricsAgent
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
-            // https://aka.ms/aspnetcore/swashbuckle
+
+
 
             #region Configure Repository
 
-            builder.Services.AddScoped<ICpuMetricsRepository,
-                CpuMetricsRepository>();
+            builder.Services.AddScoped<ICpuMetricsRepository, CpuMetricsRepository>();
 
             #endregion
 
             #region Configure Database
 
-            ConfigureSqlLiteConnection(builder.Services);
+            //ConfigureSqlLiteConnection(builder.Services);
 
             #endregion
 
@@ -38,8 +38,7 @@ namespace MetricsAgent
                 logging.ClearProviders();
                 logging.AddConsole();
 
-            }).UseNLog(new NLogAspNetCoreOptions() 
-            { RemoveLoggerFactoryFilter = true });
+            }).UseNLog(new NLogAspNetCoreOptions() { RemoveLoggerFactoryFilter = true });
 
             builder.Services.AddHttpLogging(logging =>
             {
@@ -53,16 +52,15 @@ namespace MetricsAgent
 
             #endregion
 
+
             builder.Services.AddControllers()
-             .AddJsonOptions(options =>
-               options.JsonSerializerOptions.Converters
-                .Add(new CustomTimeSpanConverter())); 
-            
-            // Learn more about configuring Swagger/OpenAPI at
+              .AddJsonOptions(options =>
+                  options.JsonSerializerOptions.Converters.Add(new CustomTimeSpanConverter()));
+            // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "MetricsManager", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "MetricsAgent", Version = "v1" });
 
                 // Поддержка TimeSpan
                 c.MapType<TimeSpan>(() => new OpenApiSchema
@@ -86,6 +84,8 @@ namespace MetricsAgent
 
             app.MapControllers();
 
+           
+
             app.Run();
         }
 
@@ -94,7 +94,7 @@ namespace MetricsAgent
             const string connectionString = "Data Source = metrics.db; Version = 3; Pooling = true; Max Pool Size = 100;";
             var connection = new SQLiteConnection(connectionString);
             connection.Open();
-            //PrepareSchema(connection);
+            PrepareSchema(connection);
         }
 
         private static void PrepareSchema(SQLiteConnection connection)
@@ -113,7 +113,5 @@ namespace MetricsAgent
                 command.ExecuteNonQuery();
             }
         }
-
     }
-
 }
