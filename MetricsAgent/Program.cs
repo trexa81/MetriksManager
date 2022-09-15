@@ -111,6 +111,37 @@ namespace MetricsAgent
                     PRIMARY KEY,
                     value INT, time INT)";
                 command.ExecuteNonQuery();
+
+
+                // Удаляем таблицу с метриками, если она есть в базе данных
+                command.CommandText = "DROP TABLE IF EXISTS hddmetrics";
+                // Отправляем запрос в базу данных
+                command.ExecuteNonQuery();
+                command.CommandText =
+                    @"CREATE TABLE hddmetrics(id INTEGER
+                    PRIMARY KEY,
+                    value INT, time INT)";
+                command.ExecuteNonQuery();
+
+                // Удаляем таблицу с метриками, если она есть в базе данных
+                command.CommandText = "DROP TABLE IF EXISTS networkmetrics";
+                // Отправляем запрос в базу данных
+                command.ExecuteNonQuery();
+                command.CommandText =
+                    @"CREATE TABLE networkmetrics(id INTEGER
+                    PRIMARY KEY,
+                    value INT, time INT)";
+                command.ExecuteNonQuery();
+
+                // Удаляем таблицу с метриками, если она есть в базе данных
+                command.CommandText = "DROP TABLE IF EXISTS rammetrics";
+                // Отправляем запрос в базу данных
+                command.ExecuteNonQuery();
+                command.CommandText =
+                    @"CREATE TABLE rammetrics(id INTEGER
+                    PRIMARY KEY,
+                    value INT, time INT)";
+                command.ExecuteNonQuery();
             }
         }
     }
