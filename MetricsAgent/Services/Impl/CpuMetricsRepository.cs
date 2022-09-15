@@ -7,7 +7,7 @@ namespace MetricsAgent.Services.Impl
 {
     public class CpuMetricsRepository : ICpuMetricsRepository
     {
-        //private const string ConnectionString = "Data Source=metrics.db;Version=3;Pooling=true;Max Pool Size=100;";
+
         #region Services
 
         private readonly IOptions<DatabaseOptions> _databaseOptions;

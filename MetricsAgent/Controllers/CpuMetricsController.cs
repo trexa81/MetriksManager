@@ -1,5 +1,7 @@
-﻿using MetricsAgent.Converters;
+﻿using AutoMapper;
+using MetricsAgent.Converters;
 using MetricsAgent.Models;
+using MetricsAgent.Models.Dto;
 using MetricsAgent.Models.Requests;
 using MetricsAgent.Services;
 using Microsoft.AspNetCore.Http;
@@ -15,25 +17,25 @@ namespace MetricsAgent.Controllers
 
         private readonly ILogger<CpuMetricsController> _logger;
         private readonly ICpuMetricsRepository _cpuMetricsRepository;
+        private readonly IMapper _mapper;
+
         #endregion
 
 
         public CpuMetricsController(
             ICpuMetricsRepository cpuMetricsRepository,
-            ILogger<CpuMetricsController> logger)
+            ILogger<CpuMetricsController> logger,
+            IMapper mapper)
         {
             _cpuMetricsRepository = cpuMetricsRepository;
             _logger = logger;
+            _mapper = mapper;
         }
 
         [HttpPost("create")]
         public IActionResult Create([FromBody] CpuMetricCreateRequest request)
         {
-            _cpuMetricsRepository.Create(new Models.CpuMetric
-            {
-                Value = request.Value,
-                Time = (int)request.Time.TotalSeconds
-            });
+            _cpuMetricsRepository.Create(_mapper.Map<CpuMetric>(request));
             return Ok();
         }
 
@@ -49,7 +51,8 @@ namespace MetricsAgent.Controllers
         {
 
             _logger.LogInformation("Get cpu metrics call.");
-            return Ok(_cpuMetricsRepository.GetByTimePeriod(fromTime, toTime));
+            return Ok(_cpuMetricsRepository.GetByTimePeriod(fromTime, toTime)
+                .Select(metric => _mapper.Map<CpuMetricDto>(metric)).ToList());
         }
 
     }

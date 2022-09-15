@@ -1,3 +1,4 @@
+using AutoMapper;
 using MetricsAgent.Converters;
 using MetricsAgent.Models;
 using MetricsAgent.Services;
@@ -12,14 +13,18 @@ namespace MetricsAgent
 {
     public class Program
     {
-        public static void Main(string[] args)
+        public static void Main(string[] args)   //MetricsManagerLesson4newBranch
         {
-
-            //MetricsManagerLesson4newBranch
-
             var builder = WebApplication.CreateBuilder(args);
 
-            // Add services to the container.
+            #region Configure Automapper
+
+            var mapperConfiguration = new MapperConfiguration(mp => mp.AddProfile(new
+                MapperProfile()));
+            var mapper = mapperConfiguration.CreateMapper();
+            builder.Services.AddSingleton(mapper);
+
+            #endregion
 
             #region Configure Options
 
@@ -96,9 +101,7 @@ namespace MetricsAgent
 
             app.UseAuthorization();
             app.UseHttpLogging();
-
             app.MapControllers();
-
             app.Run();
         }
 
