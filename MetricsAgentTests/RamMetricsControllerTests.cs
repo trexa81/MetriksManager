@@ -14,7 +14,7 @@ namespace MetricsAgentTests
 
         public RamMetricsControllerTests()
         {
-            _ramMetricsController = new RamMetricsController();
+            //_ramMetricsController = new RamMetricsController();
         }
 
         [Fact]

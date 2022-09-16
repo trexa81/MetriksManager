@@ -14,7 +14,7 @@ namespace MetricsAgentTests
 
         public HddMetricsControllerTests()
         {
-            _hddMetricsController = new HddMetricsController();
+            //_hddMetricsController = new HddMetricsController();
         }
 
         [Fact]
