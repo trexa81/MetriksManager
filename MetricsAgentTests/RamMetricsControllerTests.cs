@@ -10,11 +10,11 @@ namespace MetricsAgentTests
 {
     public class RamMetricsControllerTests
     {
-        private RamMerticsController _ramMetricsController;
+        private RamMetricsController _ramMetricsController;
 
         public RamMetricsControllerTests()
         {
-            _ramMetricsController = new RamMerticsController();
+            _ramMetricsController = new RamMetricsController();
         }
 
         [Fact]

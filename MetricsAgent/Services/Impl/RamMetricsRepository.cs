@@ -7,7 +7,7 @@ namespace MetricsAgent.Services.Impl
     {
         private const string ConnectionString = "Data Source=metrics.db;Version=3;Pooling=true;Max Pool Size=100;";
 
-        public void Create(RamMertic item)
+        public void Create(RamMetric item)
         {
 
             using var connection = new SQLiteConnection(ConnectionString);
@@ -38,21 +38,21 @@ namespace MetricsAgent.Services.Impl
             cmd.ExecuteNonQuery();
         }
 
-        public IList<RamMertic> GetAll()
+        public IList<RamMetric> GetAll()
         {
             using var connection = new SQLiteConnection(ConnectionString);
             connection.Open();
             using var cmd = new SQLiteCommand(connection);
             // Прописываем в команду SQL-запрос на получение всех данных из таблицы
             cmd.CommandText = "SELECT * FROM rammetrics";
-            var returnList = new List<RamMertic>();
+            var returnList = new List<RamMetric>();
             using (SQLiteDataReader reader = cmd.ExecuteReader())
             {
                 // Пока есть что читать — читаем
                 while (reader.Read())
                 {
                     // Добавляем объект в список возврата
-                    returnList.Add(new RamMertic
+                    returnList.Add(new RamMetric
                     {
                         Id = reader.GetInt32(0),
                         Value = reader.GetInt32(1),
@@ -63,7 +63,7 @@ namespace MetricsAgent.Services.Impl
             return returnList;
         }
 
-        public RamMertic GetById(int id)
+        public RamMetric GetById(int id)
         {
             using var connection = new SQLiteConnection(ConnectionString);
             connection.Open();
@@ -75,7 +75,7 @@ namespace MetricsAgent.Services.Impl
                 if (reader.Read())
                 {
                     // возвращаем прочитанное
-                    return new RamMertic
+                    return new RamMetric
                     {
                         Id = reader.GetInt32(0),
                         Value = reader.GetInt32(1),
@@ -90,7 +90,7 @@ namespace MetricsAgent.Services.Impl
             }
         }
 
-        public IList<RamMertic> GetByTimePeriod(TimeSpan timeFrom, TimeSpan timeTo)
+        public IList<RamMetric> GetByTimePeriod(TimeSpan timeFrom, TimeSpan timeTo)
         {
             using var connection = new SQLiteConnection(ConnectionString);
             connection.Open();
@@ -99,14 +99,14 @@ namespace MetricsAgent.Services.Impl
             cmd.CommandText = "SELECT * FROM rammetrics where time >= @timeFrom and time <= @timeTo";
             cmd.Parameters.AddWithValue("@timeFrom", timeFrom.TotalSeconds);
             cmd.Parameters.AddWithValue("@timeTo", timeTo.TotalSeconds);
-            var returnList = new List<RamMertic>();
+            var returnList = new List<RamMetric>();
             using (SQLiteDataReader reader = cmd.ExecuteReader())
             {
                 // Пока есть что читать — читаем
                 while (reader.Read())
                 {
                     // Добавляем объект в список возврата
-                    returnList.Add(new RamMertic
+                    returnList.Add(new RamMetric
                     {
                         Id = reader.GetInt32(0),
                         Value = reader.GetInt32(1),
@@ -117,7 +117,7 @@ namespace MetricsAgent.Services.Impl
             return returnList;
         }
 
-        public void Update(RamMertic item)
+        public void Update(RamMetric item)
         {
             using var connection = new SQLiteConnection(ConnectionString);
             using var cmd = new SQLiteCommand(connection);

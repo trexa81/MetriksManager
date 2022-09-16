@@ -5,7 +5,7 @@ namespace MetricsAgent.Controllers
 {
     [Route("api/metrics/ram/available")]
     [ApiController]
-    public class RamMerticsController : ControllerBase
+    public class RamMetricsController : ControllerBase
     {
         [HttpGet("from/{fromTime}/to/{toTime}")]
         public IActionResult GetRamMetrics(
